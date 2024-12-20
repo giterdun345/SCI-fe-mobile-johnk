@@ -40,7 +40,8 @@ module.exports = {
     "dist/",
     "web-build/",
     "*.config.js",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "**/*.d.ts"
   ],
   overrides: [
     {

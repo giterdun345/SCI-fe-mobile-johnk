@@ -13,7 +13,9 @@ jest.mock("../../api/api", () => ({
   fetchCatalog: jest.fn(),
 }));
 
-const mockedFetchCatalog = fetchCatalog as jest.MockedFunction<typeof fetchCatalog>;
+const mockedFetchCatalog = fetchCatalog as jest.MockedFunction<
+  typeof fetchCatalog
+>;
 
 describe("Dropdown Component", () => {
   const mockOnSelect = jest.fn();

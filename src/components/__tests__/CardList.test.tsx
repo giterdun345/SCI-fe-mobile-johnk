@@ -49,7 +49,9 @@ describe("CardList Component", () => {
   });
 
   it("displays loading and error states", async () => {
-    jest.spyOn(api, "searchCards").mockRejectedValue(new Error("Network error"));
+    jest
+      .spyOn(api, "searchCards")
+      .mockRejectedValue(new Error("Network error"));
     render(<CardList hp="HP1" />);
 
     expect(screen.getByText(/Loading cards.../i)).toBeTruthy();
