@@ -44,12 +44,13 @@ export default function Dropdown({ onSelect }: DropdownProps) {
   return (
     <View style={styles.container}>
       <Picker
-        selectedValue={selectedValue}
-        onValueChange={(itemValue) => {
-          setSelectedValue(itemValue);
-          onSelect(itemValue);
-        }}
-        style={styles.picker}
+          testID="picker"
+          selectedValue={selectedValue}
+          onValueChange={(itemValue) => {
+            setSelectedValue(itemValue);
+            onSelect(itemValue);
+          }}
+          style={styles.picker}
       >
         <Picker.Item label="Select HP" value="" />
         {options.map((option) => (
