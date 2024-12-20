@@ -32,7 +32,7 @@ describe("Dropdown Component", () => {
   });
 
   it("displays error message when API fails", async () => {
-    mockedFetchCatalog.mockRejectedValueOnce(new Error("Network error"));
+    mockedFetchCatalog.mockRejectedValueOnce(new Error("Error: An error occurred"));
     const { findByText } = render(<Dropdown onSelect={mockOnSelect} />);
     const errorMessage = await findByText(/Error: Network error/i);
     expect(errorMessage).toBeTruthy();

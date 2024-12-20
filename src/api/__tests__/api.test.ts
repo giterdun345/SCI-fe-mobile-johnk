@@ -34,7 +34,7 @@ describe("API Service", () => {
   describe("searchCards", () => {
     const mockCards = [
       { id: 1, name: "Card 1", Set: "Set1" },
-      { id: 2, name: "Card 2", Set: "Set2" },
+      { id: 2, name: "Card 2", Set: "Set1" },
     ];
 
     it("successfully searches cards with HP parameter", async () => {

@@ -16,7 +16,7 @@ describe("CardList Component", () => {
         {
           Set: "Set1",
           Number: "001",
-          Name: "Card 1",
+          Name: "Card 2",
           Type: "Unit",
           Cost: "1",
           HP: "3",
@@ -51,7 +51,7 @@ describe("CardList Component", () => {
   it("displays loading and error states", async () => {
     jest
       .spyOn(api, "searchCards")
-      .mockRejectedValue(new Error("Network error"));
+      .mockRejectedValue(new Error("Error: An error occurred"));
     render(<CardList hp="HP1" />);
 
     expect(screen.getByText(/Loading cards.../i)).toBeTruthy();
