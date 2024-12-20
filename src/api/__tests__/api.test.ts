@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { fetchCatalog, searchCards } from "../api";
 
 jest.mock("axios");
@@ -16,7 +17,7 @@ describe("API Service", () => {
 
       const result = await fetchCatalog();
       expect(mockedAxios.get).toHaveBeenCalledWith(
-          "http://localhost:8010/proxy/catalog/hps",
+        "http://localhost:8010/proxy/catalog/hps",
       );
       expect(result.data).toEqual(mockData);
     });
@@ -24,7 +25,9 @@ describe("API Service", () => {
     it("handles network errors", async () => {
       mockedAxios.get.mockRejectedValueOnce(new Error("Network error"));
 
-      await expect(fetchCatalog()).rejects.toThrow("Failed to fetch catalog data");
+      await expect(fetchCatalog()).rejects.toThrow(
+        "Failed to fetch catalog data",
+      );
     });
   });
 
@@ -39,13 +42,13 @@ describe("API Service", () => {
 
       const result = await searchCards("HP1");
       expect(mockedAxios.get).toHaveBeenCalledWith(
-          "http://localhost:8010/proxy/cards/search",
-          {
-            params: {
-              q: "h=HP1",
-              pretty: true,
-            },
+        "http://localhost:8010/proxy/cards/search",
+        {
+          params: {
+            q: "h=HP1",
+            pretty: true,
           },
+        },
       );
       expect(result.data).toEqual(mockCards);
     });
@@ -53,7 +56,9 @@ describe("API Service", () => {
     it("handles network errors", async () => {
       mockedAxios.get.mockRejectedValueOnce(new Error("Network error"));
 
-      await expect(searchCards("HP1")).rejects.toThrow("Failed to fetch card data");
+      await expect(searchCards("HP1")).rejects.toThrow(
+        "Failed to fetch card data",
+      );
     });
   });
 });

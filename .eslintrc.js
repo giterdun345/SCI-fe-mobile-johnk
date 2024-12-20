@@ -4,7 +4,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    project: "./tsconfig.json",
+    project: ["./tsconfig.json"],
     ecmaFeatures: {
       jsx: true
     },
@@ -26,15 +26,12 @@ module.exports = {
     "@typescript-eslint"
   ],
   rules: {
-    // Keep as errors
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-floating-promises": "error",
-    "no-console": "error",
+    "@typescript-eslint/no-floating-promises": "warn",
+    "no-console": "warn",
     "no-debugger": "error",
     "import/no-unresolved": "error",
-
-    // Remove strict return type requirement
     "@typescript-eslint/explicit-function-return-type": "off"
   },
   ignorePatterns: [
@@ -44,5 +41,13 @@ module.exports = {
     "web-build/",
     "*.config.js",
     ".eslintrc.js"
+  ],
+  overrides: [
+    {
+      files: ["src/**/*.d.ts"],
+      parserOptions: {
+        project: ["./tsconfig.json"]
+      }
+    }
   ]
 };

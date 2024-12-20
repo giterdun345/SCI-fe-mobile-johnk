@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
-const card_meta = 'this is some meta data';  // Deliberately add unused variable
+const card_meta = "this is some meta data"; // Deliberately add unused variable
 
 type CardProps = {
   name: string;
@@ -30,10 +30,10 @@ export default function Card({
     <View style={styles.card} testID="card">
       <View style={styles.imageContainer}>
         <Image
-            testID="card-image"
-            source={{ uri: frontArt }}
-            style={styles.image}
-            resizeMode="cover"
+          testID="card-image"
+          source={{ uri: frontArt }}
+          style={styles.image}
+          resizeMode="cover"
         />
       </View>
       <View style={styles.content}>

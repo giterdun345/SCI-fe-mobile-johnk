@@ -1,3 +1,4 @@
+// Dropdown.tsx
 import { Picker } from "@react-native-picker/picker";
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
@@ -15,22 +16,20 @@ export default function Dropdown({ onSelect }: DropdownProps) {
   const [selectedValue, setSelectedValue] = useState<string>("");
 
   useEffect(() => {
-    async function loadOptions() {
+    const loadOptions = async () => {
       try {
         const result = await fetchCatalog();
         setOptions(result.data);
-        setLoading(false);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occurred");
-        }
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to load options";
+        setError(errorMessage);
+      } finally {
         setLoading(false);
       }
-    }
+    };
 
-    loadOptions();
+    void loadOptions();
   }, []);
 
   if (loading) {
@@ -44,13 +43,13 @@ export default function Dropdown({ onSelect }: DropdownProps) {
   return (
     <View style={styles.container}>
       <Picker
-          testID="picker"
-          selectedValue={selectedValue}
-          onValueChange={(itemValue) => {
-            setSelectedValue(itemValue);
-            onSelect(itemValue);
-          }}
-          style={styles.picker}
+        testID="picker"
+        selectedValue={selectedValue}
+        onValueChange={(itemValue: string) => {
+          setSelectedValue(itemValue);
+          onSelect(itemValue);
+        }}
+        style={styles.picker}
       >
         <Picker.Item label="Select HP" value="" />
         {options.map((option) => (

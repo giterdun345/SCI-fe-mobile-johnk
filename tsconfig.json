@@ -11,8 +11,13 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/setupTests.d.ts",
+    "src/setupTests.tsx"
   ],
+
   "exclude": [
     "node_modules",
     "babel.config.js",
