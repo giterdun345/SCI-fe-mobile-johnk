@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "expo start",
+    "start": "echo \"Please use 'yarn web-with-proxy' or 'yarn android-with-proxy' or 'yarn ios-with-proxy'\" && exit 1",
+
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -14,7 +15,8 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "validate": "yarn lint && yarn test",
     "proxy": "lcp --proxyUrl https://api.swu-db.com",
-    "web-with-proxy": "concurrently \"yarn proxy\" \"yarn web\""
+    "web-with-proxy": "yarn validate && concurrently \"yarn proxy\" \"yarn web\"",
+    "android-with-proxy": "yarn validate && concurrently \"yarn proxy\" \"yarn android\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.0",

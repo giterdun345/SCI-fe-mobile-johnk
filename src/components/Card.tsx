@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
-const card_meta = "this is some meta data"; // Deliberately add unused variable
+//const card_meta = "this is some meta data"; // Deliberately add unused variable
 
 type CardProps = {
   name: string;
