@@ -6,10 +6,11 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Button
 } from "react-native";
 
 import Card from "./Card";
-import { searchCards, CardResponse } from "../api/api";
+import { searchCards, CardResponse, fetchCatalog } from "../api/api";
 
 type CardData = {
   set: string;
@@ -43,21 +44,21 @@ const transformCardResponse = (card: CardResponse): CardData => ({
   number: card.Number,
   name: card.Name,
   type: card.Type,
-  aspects: card.Aspects || [],
-  traits: card.Traits || [],
-  arenas: card.Arenas || [],
-  cost: parseInt(card.Cost || "0", 10),
-  power: parseInt(card.Power || "0", 10),
-  hp: parseInt(card.HP || "0", 10),
-  fronttext: card.FrontText || "",
-  doublesided: card.DoubleSided || false,
-  rarity: card.Rarity || "",
-  unique: card.Unique || false,
-  artist: card.Artist || "",
-  varianttype: card.VariantType || "",
-  marketprice: card.MarketPrice || "",
-  foilprice: card.FoilPrice || "",
-  frontArt: card.FrontArt || "",
+  aspects: card.Aspects ?? [],
+  traits: card.Traits ?? [],
+  arenas: card.Arenas ?? [],
+  cost: parseInt(card.Cost ?? "0", 10),
+  power: parseInt(card.Power ?? "0", 10),
+  hp: parseInt(card.HP ?? "0", 10),
+  fronttext: card.FrontText ?? "",
+  doublesided: card.DoubleSided ?? false,
+  rarity: card.Rarity ?? "",
+  unique: card.Unique ?? false,
+  artist: card.Artist ?? "",
+  varianttype: card.VariantType ?? "",
+  marketprice: card.MarketPrice ?? "",
+  foilprice: card.FoilPrice ?? "",
+  frontArt: card.FrontArt ?? "",
   id: `${card.Set || "unknown-set"}-${card.Number || "unknown-number"}`,
 });
 
@@ -143,7 +144,10 @@ export default function CardList({ hp = "" }: CardListProps) {
   if (cards.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.messageText}>No cards found.</Text>
+        <View>
+          <Text style={styles.messageText}>No cards found.</Text>
+          <Button title="Retry" onPress={fetchCatalog} />
+        </View>
       </View>
     );
   }

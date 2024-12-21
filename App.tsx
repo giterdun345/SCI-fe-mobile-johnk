@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Platform } from "react-native";
+import { SafeAreaView, StyleSheet, Platform, Image, Text, Animated } from "react-native";
 
 import CardList from "./src/components/CardList";
 import Dropdown from "./src/components/Dropdown";
@@ -8,8 +8,12 @@ import ParallaxScrollView from "./src/components/ParallaxScrollView";
 export default function App() {
   const [selectedHP, setSelectedHP] = useState<string>("");
 
-  // Simple header image component could be added here
-  const HeaderImage = () => null;
+  const HeaderImage = () => <Image
+    style={{ height: "100%", width: '100%' }}
+    source={{
+      uri: 'https://playingcarddecks.com/cdn/shop/products/star-wars-playing-cards-uspccplayingcarddeckscom-26241701.jpg?v=1589295022&width=1445',
+    }}
+  />;;
 
   const content = (
     <>
