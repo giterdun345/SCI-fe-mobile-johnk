@@ -1,14 +1,23 @@
 import axios from "axios";
+import  AsyncStorage  from '@react-native-async-storage/async-storage';
 
 import { fetchCatalog, searchCards } from "../api";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
+
 describe("API Service", () => {
   beforeEach(() => {
+      AsyncStorage.clear();
     jest.clearAllMocks();
+
   });
+
+
 
   describe("fetchCatalog", () => {
     it("successfully fetches catalog data", async () => {

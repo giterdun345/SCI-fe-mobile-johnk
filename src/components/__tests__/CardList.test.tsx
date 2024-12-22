@@ -6,6 +6,10 @@ import CardList from "../CardList";
 
 jest.mock("../../api/api");
 
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
+
 describe("CardList Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -38,10 +42,10 @@ describe("CardList Component", () => {
   it("renders cards and allows sorting", async () => {
     render(<CardList hp="HP1" />);
 
-    //     // Wait for loading state
-    //     await waitFor(() => {
-    //         expect(screen.getByText(/Loading cards.../i)).toBeTruthy();
-    //     })
+        // Wait for loading state
+        await waitFor(() => {
+            expect(screen.getByText(/Loading cards.../i)).toBeTruthy();
+        })
 
     //     // Wait for cards to load
     //     await waitFor(() => {

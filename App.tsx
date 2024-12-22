@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Platform, Image } from "react-native";
 
-import StickyHeaderMain from "./src/components/StickyHeader/StickyHeaderMain";
-import CardList from "./src/components/CardList";
-import ParallaxScrollView from "./src/components/ParallaxScrollView";
 import { CardData } from "@/types/CardsTypes";
 
-export default function App() {
-  const [cardList, setCardList] = useState<CardData[]>([])
+import CardList from "./src/components/CardList";
+import ParallaxScrollView from "./src/components/ParallaxScrollView";
+import StickyHeaderMain from "./src/components/StickyHeader/StickyHeaderMain";
 
-  const HeaderImage = () => <Image
-    style={{ height: "100%", width: '100%' }}
-    source={{
-      uri: 'https://playingcarddecks.com/cdn/shop/products/star-wars-playing-cards-uspccplayingcarddeckscom-26241701.jpg?v=1589295022&width=1445',
-    }}
-  />;
+export default function App() {
+  const [cardList, setCardList] = useState<CardData[]>([]);
+
+  const HeaderImage = () => (
+    <Image
+      style={{ height: "100%", width: "100%" }}
+      source={{
+        uri: "https://playingcarddecks.com/cdn/shop/products/star-wars-playing-cards-uspccplayingcarddeckscom-26241701.jpg?v=1589295022&width=1445",
+      }}
+    />
+  );
 
   const content = (
     <>
       <StickyHeaderMain setCardList={setCardList} />
-      <CardList hp={"2"} cardList={cardList} />
+      <CardList hp="2" cardList={cardList} />
     </>
   );
 

@@ -2,8 +2,8 @@
 import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { View, StyleSheet, ActivityIndicator, Text } from "react-native";
+
 import { useFetchCatalog } from "@/hooks/useFetchCatalog";
-import { fetchCatalog } from "@/api/api";
 
 type DropdownProps = {
   onSelect: (selectedValue: string) => void;
@@ -12,9 +12,9 @@ type DropdownProps = {
 export default function Dropdown({ onSelect }: DropdownProps) {
   const [selectedValue, setSelectedValue] = useState<string>("");
 
-  const { options, loading, error } = useFetchCatalog()
+  const { options, loading, error } = useFetchCatalog();
   if (loading) {
-    return <ActivityIndicator size="large" accessibilityHint='loading' />;
+    return <ActivityIndicator size="large" accessibilityHint="loading" />;
   }
 
   if (error) {

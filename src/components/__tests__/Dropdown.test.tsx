@@ -5,7 +5,6 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import React from "react";
-import { Alert } from 'react-native';
 
 import { fetchCatalog } from "../../api/api";
 import Dropdown from "../Dropdown";
@@ -14,6 +13,9 @@ jest.mock("../../api/api", () => ({
   fetchCatalog: jest.fn(),
 }));
 
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
 
 const mockedFetchCatalog = fetchCatalog as jest.MockedFunction<
   typeof fetchCatalog
@@ -28,9 +30,9 @@ describe("Dropdown Component", () => {
   });
 
   it("shows loading state initially", async () => {
-    mockedFetchCatalog.mockImplementation(() => new Promise(() => {}));
+    mockedFetchCatalog.mockImplementation(() => new Promise(() => { }));
     render(<Dropdown onSelect={mockOnSelect} />);
-    const loadingIndicator = screen.getByAccessibilityHint('loading')
+    const loadingIndicator = screen.getByAccessibilityHint("loading");
     expect(loadingIndicator).toBeTruthy();
   });
 
@@ -43,8 +45,13 @@ describe("Dropdown Component", () => {
   });
 
   it("renders options and handles selection", async () => {
-    mockedFetchCatalog.mockResolvedValueOnce({ data: mockOptions });
+    mockedFetchCatalog.mockResolvedValueOnce({
+      data: mockOptions, object: "catalog",
+      uri: "https://api.swu-db.com/catalog/hps",
+      total_values: 3
+    });
     render(<Dropdown onSelect={mockOnSelect} />);
+
 
     await waitFor(() => {
       expect(screen.queryByRole("progressbar")).toBeFalsy();

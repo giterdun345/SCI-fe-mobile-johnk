@@ -1,8 +1,9 @@
 // api.ts
-import { Platform } from "react-native";
-import axios from "axios";
-import type { CatalogResponse, CardResponse } from "./apiTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { Platform } from "react-native";
+
+import type { CatalogResponse, CardResponse } from "./apiTypes";
 
 const BASE_URL =
   Platform.OS === "android"
@@ -12,7 +13,7 @@ const BASE_URL =
 export class APIError extends Error {
   constructor(
     message: string,
-    public originalError?: unknown
+    public originalError?: unknown,
   ) {
     super(message);
     this.name = "APIError";
@@ -26,7 +27,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
   try {
     const response = await axios.get<CatalogResponse>(
-      `${BASE_URL}/catalog/hps`
+      `${BASE_URL}/catalog/hps`,
     );
 
     const catalogOptions = response.data.data; // TODO: may want to adjust name
@@ -38,7 +39,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
     await AsyncStorage.setItem(
       storageKey,
-      JSON.stringify(formattedCatalogOptions)
+      JSON.stringify(formattedCatalogOptions),
     );
     return formattedCatalogOptions;
   } catch (error) {
@@ -46,7 +47,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
     if (axios.isAxiosError(error)) {
       throw new APIError(
         `Failed to fetch catalog data: ${error.message}`,
-        error
+        error,
       );
     }
 
@@ -68,7 +69,7 @@ export const searchCards = async (hp: string): Promise<CardResponse[]> => {
           q: `h=${hp}`,
           pretty: true,
         },
-      }
+      },
     );
 
     const responseData = response.data;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { fetchCatalog } from "@/api/api";
 
 export function useFetchCatalog() {
@@ -11,7 +12,7 @@ export function useFetchCatalog() {
       try {
         const result = await fetchCatalog();
 
-        setOptions(result.data as string[]);
+        setOptions(result.data);
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load options";

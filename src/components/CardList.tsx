@@ -6,67 +6,24 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Button
+  Button,
 } from "react-native";
+
+import { CardResponse } from "@/api/apiTypes";
+import { useSearchCards } from "@/hooks/useSearchCards";
+import type { CardData } from "@/types/CardsTypes";
 
 import Card from "./Card";
 import { searchCards, fetchCatalog } from "../api/api";
-import { CardResponse } from "@/api/apiTypes";
-import { transformCardResponse } from "@/utils/transformCardResponse";
-
-import type { CardData } from "@/types/CardsTypes";
 
 type CardListProps = {
   hp?: string;
-  cardList: CardData[]
+  cardList: CardData[];
 };
 
-
 export default function CardList({ hp = "", cardList }: CardListProps) {
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<keyof CardData>("name");
-
-  useEffect(() => {
-    const fetchCardData = async () => {
-      if (!hp) {
-        setCards([]);
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      setError(null);
-
-      try {
-        const result = await searchCards(hp);
-        const formattedCards = result.data.map(transformCardResponse);
-
-        setCards(
-          formattedCards.sort((a, b) =>
-            a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0,
-          ),
-        );
-      } catch (err) {
-        //setError("Failed to load cards");
-        setError(err instanceof Error ? err.message : "Failed to load cards");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchCardData();
-  }, [hp, sortKey]);
-
-  const sortCards = (key: keyof CardData) => {
-    setSortKey(key);
-    setCards(
-      [...cards].sort((a, b) =>
-        a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0,
-      ),
-    );
-  };
+  const { cards, loading, error } = useSearchCards(hp, sortKey);
 
   const renderSortButton = (
     label: string,
@@ -76,7 +33,7 @@ export default function CardList({ hp = "", cardList }: CardListProps) {
     <TouchableOpacity
       style={[styles.sortButton, { backgroundColor: color }]}
       onPress={() => {
-        sortCards(key);
+        setSortKey(key);
       }}
       accessible
       testID={`sort-by-${key}`}
@@ -127,7 +84,9 @@ export default function CardList({ hp = "", cardList }: CardListProps) {
         contentContainerStyle={styles.listContent}
         testID="card-list"
       /> */}
-      {cards.map(item => <Card key={item.id}{...item} />)}
+      {cards.map((item) => (
+        <Card key={item.id} {...item} />
+      ))}
     </View>
   );
 }
