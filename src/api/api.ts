@@ -21,7 +21,7 @@ export class APIError extends Error {
 }
 
 export const fetchCatalog = async (): Promise<CatalogResponse> => {
-  const storageKey = "catalog-options";
+  const storageKey = `catalog-options`;
   const cache: CatalogResponse | null = await getCachedData(storageKey);
   if (cache !== null) return cache;
 
@@ -59,7 +59,7 @@ export const searchCards = async (
   hp: string
 ): Promise<CardResponse["data"]> => {
   // typing differs from CatalogResponse, keys are   ["total_cards", "data"]
-  const storageKey = "card-list";
+  const storageKey = `card-list-${hp}`;
   const cache: CardResponse | null = await getCachedData(storageKey);
   if (cache !== null) return cache.data;
 
@@ -82,7 +82,7 @@ export const searchCards = async (
   }
 };
 
-async function getCachedData(storageKey: "catalog-options" | "card-list") {
+async function getCachedData(storageKey: string) {
   try {
     const storageData = await AsyncStorage.getItem(storageKey);
     return storageData != null ? JSON.parse(storageData) : null;

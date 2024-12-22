@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { View } from "react-native";
+
 import { useSearchCards } from "@/hooks/useSearchCards";
 import { CardData } from "@/types/CardsTypes";
-
 import Dropdown from "@/components/Dropdown";
 import SortButtonGroup from "@/components/SortButtonGroup";
 import CardList from "./src/components/CardList";
@@ -14,8 +15,10 @@ export default function App() {
 
   return (
     <ContentWrapper>
-      <Dropdown onSelect={setSelectedHP} />
-      <SortButtonGroup setSortKey={setSortKey} loading={loading} error={error} hasCards={cards.length === 0} />
+      <View>
+        <Dropdown onSelect={setSelectedHP} />
+        <SortButtonGroup setSortKey={setSortKey} loading={loading} error={error} hasCards={cards.length === 0} />
+      </View>
       <CardList cardList={cards} />
     </ContentWrapper>
   )

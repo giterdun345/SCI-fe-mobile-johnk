@@ -55,8 +55,11 @@ export default function ParallaxScrollView({
         scrollEventThrottle={16}
         scrollIndicatorInsets={{ bottom }}
         contentContainerStyle={{ paddingBottom: bottom }}
-        stickyHeaderIndices={[0, 1]}
+        stickyHeaderIndices={[0]}
       >
+        <ThemedView style={styles.stickyHeader}>
+          {(children as ReactElement[])[0]}
+        </ThemedView>
         <Animated.View
           style={[
             styles.header,
@@ -66,7 +69,7 @@ export default function ParallaxScrollView({
         >
           {headerImage}
         </Animated.View>
-        <ThemedView style={styles.content}>{children}</ThemedView>
+        <ThemedView style={styles.content}>{(children as ReactElement[]).slice(1)}</ThemedView>
       </Animated.ScrollView>
     </ThemedView>
   );
@@ -79,6 +82,9 @@ const styles = StyleSheet.create({
   header: {
     height: HEADER_HEIGHT,
     overflow: "hidden",
+  },
+  stickyHeader: {
+    zIndex: 10,
   },
   content: {
     flex: 1,
