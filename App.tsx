@@ -6,7 +6,7 @@ import { CardData } from "@/types/CardsTypes";
 import Dropdown from "@/components/Dropdown";
 import SortButtonGroup from "@/components/SortButtonGroup";
 import CardList from "./src/components/CardList";
-import ContentWrapper from "@/components/ContentWrapper";
+import ContentWrapper from "@/components/ContentWrapperNew";
 
 export default function App() {
   const [selectedHP, setSelectedHP] = useState<string>("");
