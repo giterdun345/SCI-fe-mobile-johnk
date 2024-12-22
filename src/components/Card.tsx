@@ -1,6 +1,6 @@
 import { CardData } from "@/types/CardsTypes";
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { PropsWithChildren } from "react";
+import { View, Text, Image, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 export default function Card({
   name,
@@ -15,26 +15,61 @@ export default function Card({
 }: CardData) {
   return (
     <View style={styles.card} testID="card">
-      <View style={styles.imageContainer}>
-        <Image
-          testID="card-image"
-          source={{ uri: frontArt }}
-          style={styles.image}
-          resizeMode="cover"
-        />
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.detail}>Set: {set}</Text>
-        <Text style={styles.detail}>Type: {type}</Text>
-        <Text style={styles.detail}>Traits: {traits?.join(", ")}</Text>
-        <Text style={styles.detail}>Cost: {cost}</Text>
-        <Text style={styles.detail}>Power: {power}</Text>
-        <Text style={styles.detail}>HP: {hp}</Text>
-        <Text style={styles.detail}>Rarity: {rarity}</Text>
+      <Text style={styles.cardTitle}>{name}</Text>
+      <Image
+        testID="card-image"
+        source={{ uri: frontArt }}
+        style={styles.image}
+        resizeMode="contain"
+
+      />
+      <View style={styles.dataContainer}>
+        <Block row style={{ marginLeft: 16, marginTop: 16, marginBottom: 8 }}>
+          <Block>
+            <Text style={styles.detail}>Set: {set}</Text>
+            <Text style={styles.detail}>Type: {type}</Text>
+            <Text style={styles.detail}>Cost: {cost}</Text>
+          </Block>
+
+          <Block>
+            <Text style={styles.detail}>Power: {power}</Text>
+            <Text style={styles.detail}>HP: {hp}</Text>
+            <Text style={styles.detail}>Rarity: {rarity}</Text>
+          </Block>
+        </Block>
+
+        <Block row>
+          <Text style={styles.traits}>Traits: {traits?.join(", ")}</Text>
+        </Block>
       </View>
     </View>
   );
+}
+
+interface BlockProps {
+  style?: StyleProp<ViewStyle>
+  flex?: ViewStyle["flex"];
+  row?: boolean
+}
+
+function Block({
+  children,
+  style,
+  flex = 1,
+  row,
+  ...props
+}: PropsWithChildren<BlockProps>) {
+  const blockStyle = StyleSheet.flatten([
+    flex !== undefined && { flex },
+    row && { flexDirection: 'row' } as ViewStyle,
+    style,
+  ])
+
+  return (
+    <View style={blockStyle} {...props}>
+      {children}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -42,8 +77,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#1F2937",
     borderRadius: 8,
     padding: 8,
-    margin: 8,
-    flexDirection: "row",
+    marginRight: 8,
+    marginLeft: 8,
+    marginTop: -3,
+    flexDirection: "column",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -53,29 +90,42 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  imageContainer: {
-    width: 120,
-    height: 120,
-    marginRight: 12,
+
+  cardTitle: {
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    margin: 16,
   },
+
   image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 8,
+    width: 300,
+    height: 300,
+    borderRadius: 65 // TODO: ask about white tips on the images
   },
+
+  dataContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   content: {
     flex: 1,
     justifyContent: "center",
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 4,
-  },
+
   detail: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#D1D5DB",
     marginBottom: 2,
   },
+
+  traits: {
+    fontSize: 16,
+    color: "#D1D5DB",
+    marginBottom: 8,
+  }
 });
+
