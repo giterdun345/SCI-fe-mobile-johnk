@@ -13,7 +13,7 @@ const BASE_URL =
 export class APIError extends Error {
   constructor(
     message: string,
-    public originalError?: unknown,
+    public originalError?: unknown
   ) {
     super(message);
     this.name = "APIError";
@@ -27,7 +27,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
   try {
     const response = await axios.get<CatalogResponse>(
-      `${BASE_URL}/catalog/hps`,
+      `${BASE_URL}/catalog/hps`
     );
 
     const catalogOptions = response.data.data; // TODO: may want to adjust name
@@ -39,7 +39,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
     await AsyncStorage.setItem(
       storageKey,
-      JSON.stringify(formattedCatalogOptions),
+      JSON.stringify(formattedCatalogOptions)
     );
     return formattedCatalogOptions;
   } catch (error) {
@@ -47,7 +47,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
     if (axios.isAxiosError(error)) {
       throw new APIError(
         `Failed to fetch catalog data: ${error.message}`,
-        error,
+        error
       );
     }
 
@@ -55,26 +55,25 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
   }
 };
 
-export const searchCards = async (hp: string): Promise<CardResponse[]> => {
-  // typing differs from Catalog Response, keys are   ["total_cards", "data"]
+export const searchCards = async (
+  hp: string
+): Promise<CardResponse["data"]> => {
+  // typing differs from CatalogResponse, keys are   ["total_cards", "data"]
   const storageKey = "card-list";
-  const cache: CardResponse[] | null = await getCachedData(storageKey);
-  if (cache !== null) return cache;
+  const cache: CardResponse | null = await getCachedData(storageKey);
+  if (cache !== null) return cache.data;
 
   try {
-    const response = await axios.get<CardResponse[]>(
-      `${BASE_URL}/cards/search`,
-      {
-        params: {
-          q: `h=${hp}`,
-          pretty: true,
-        },
+    const response = await axios.get<CardResponse>(`${BASE_URL}/cards/search`, {
+      params: {
+        q: `h=${hp}`,
+        pretty: true,
       },
-    );
+    });
 
     const responseData = response.data;
     await AsyncStorage.setItem(storageKey, JSON.stringify(responseData));
-    return responseData;
+    return responseData.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new APIError(`Failed to fetch card data: ${error.message}`, error);

@@ -6,6 +6,11 @@ export interface CatalogResponse {
 }
 
 export interface CardResponse {
+  data: UnformattedCard[];
+  total_cards: number;
+}
+
+export interface UnformattedCard {
   Set: string;
   Number: string;
   Name: string;

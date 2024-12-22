@@ -1,17 +1,6 @@
+import { CardData } from "@/types/CardsTypes";
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-
-type CardProps = {
-  name: string;
-  set: string;
-  cost: number;
-  power: number;
-  hp: string;
-  type: string;
-  traits: string[];
-  rarity: string;
-  frontArt: string;
-};
 
 export default function Card({
   name,
@@ -23,7 +12,7 @@ export default function Card({
   traits,
   rarity,
   frontArt,
-}: CardProps) {
+}: CardData) {
   return (
     <View style={styles.card} testID="card">
       <View style={styles.imageContainer}>
