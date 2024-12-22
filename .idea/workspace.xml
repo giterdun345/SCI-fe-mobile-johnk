@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0694fef-7efe-4404-9dc5-c72d91debd1c" name="Changes" comment="api tests">
-      <change beforePath="$PROJECT_DIR$/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/apiTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/apiTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StickyHeader/StickyHeaderMain.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dropdown.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
