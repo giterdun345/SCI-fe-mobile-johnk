@@ -13,7 +13,7 @@ const BASE_URL =
 export class APIError extends Error {
   constructor(
     message: string,
-    public originalError?: unknown
+    public originalError?: unknown,
   ) {
     super(message);
     this.name = "APIError";
@@ -27,7 +27,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
   try {
     const response = await axios.get<CatalogResponse>(
-      `${BASE_URL}/catalog/hps`
+      `${BASE_URL}/catalog/hps`,
     );
 
     const catalogOptions = response.data.data; // TODO: may want to adjust name
@@ -39,15 +39,14 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 
     await AsyncStorage.setItem(
       storageKey,
-      JSON.stringify(formattedCatalogOptions)
+      JSON.stringify(formattedCatalogOptions),
     );
     return formattedCatalogOptions;
   } catch (error) {
-    console.error("error", error);
     if (axios.isAxiosError(error)) {
       throw new APIError(
         `Failed to fetch catalog data: ${error.message}`,
-        error
+        error,
       );
     }
 
@@ -56,7 +55,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 };
 
 export const searchCards = async (
-  hp: string
+  hp: string,
 ): Promise<CardResponse["data"]> => {
   // typing differs from CatalogResponse, keys are   ["total_cards", "data"]
   const storageKey = `card-list-${hp}`;

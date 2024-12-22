@@ -1,5 +1,5 @@
-import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 import { fetchCatalog, searchCards } from "../api";
 
@@ -7,12 +7,12 @@ jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 jest.mock("@react-native-async-storage/async-storage", () =>
-  require("@react-native-async-storage/async-storage/jest/async-storage-mock")
+  require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
 );
 
 describe("API Service", () => {
-  beforeEach(() => {
-    AsyncStorage.clear();
+  beforeEach(async () => {
+    await AsyncStorage.clear();
     jest.clearAllMocks();
   });
 
@@ -23,7 +23,7 @@ describe("API Service", () => {
 
       const result = await fetchCatalog();
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        "http://localhost:8010/proxy/catalog/hps"
+        "http://localhost:8010/proxy/catalog/hps",
       );
       expect(result.data).toEqual(mockData);
     });
@@ -32,7 +32,7 @@ describe("API Service", () => {
       mockedAxios.get.mockRejectedValueOnce(new Error("Network error"));
 
       await expect(fetchCatalog()).rejects.toThrow(
-        "Failed to fetch catalog data"
+        "Failed to fetch catalog data",
       );
     });
   });
@@ -54,7 +54,7 @@ describe("API Service", () => {
             q: "h=HP1",
             pretty: true,
           },
-        }
+        },
       );
       expect(result).toEqual(mockCards);
     });
@@ -63,7 +63,7 @@ describe("API Service", () => {
       mockedAxios.get.mockRejectedValueOnce(new Error("Network error"));
 
       await expect(searchCards("HP1")).rejects.toThrow(
-        "Failed to fetch card data"
+        "Failed to fetch card data",
       );
     });
   });

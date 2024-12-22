@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react-native";
 import React from "react";
 
-import Card from "../Card";
 import type { CardData } from "@/types/CardsTypes";
+
+import Card from "../Card";
 
 const mockProps = {
   name: "Test Card",
@@ -18,7 +19,7 @@ const mockProps = {
 
 describe("Card Component", () => {
   it("renders all card information correctly", () => {
-    render(<Card {...mockProps as unknown as CardData} />);
+    render(<Card {...(mockProps as unknown as CardData)} />);
 
     expect(screen.getByText(mockProps.name)).toBeTruthy();
     expect(screen.getByText(`Set: ${mockProps.set}`)).toBeTruthy();
@@ -33,14 +34,14 @@ describe("Card Component", () => {
   });
 
   it("renders image with correct source", () => {
-    render(<Card {...mockProps as unknown as CardData} />);
+    render(<Card {...(mockProps as unknown as CardData)} />);
     const image = screen.getByTestId("card-image");
     expect(image.props.source.uri).toBe(mockProps.frontArt);
   });
 
   it("handles missing traits gracefully", () => {
     const propsWithoutTraits = { ...mockProps, traits: [] };
-    render(<Card {...propsWithoutTraits as unknown as CardData} />);
+    render(<Card {...(propsWithoutTraits as unknown as CardData)} />);
     expect(screen.getByText("Traits: ")).toBeTruthy();
   });
 });

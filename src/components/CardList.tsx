@@ -1,10 +1,9 @@
 // CardList.tsx
-import {
-  StyleSheet,
-} from "react-native";
-import { useSharedValue } from 'react-native-reanimated'
+import { StyleSheet } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 
 import type { CardData } from "@/types/CardsTypes";
+
 import Card from "./Card";
 import { ThemedView } from "./ThemedView";
 
@@ -13,9 +12,9 @@ type CardListProps = {
 };
 
 export default function CardList({ cardList }: CardListProps) {
-  const animatedValue = useSharedValue(0)
-  const currentIndex = useSharedValue(0)
-  const previousIndex = useSharedValue(0)
+  const animatedValue = useSharedValue(0);
+  const currentIndex = useSharedValue(0);
+  const previousIndex = useSharedValue(0);
 
   return (
     <ThemedView style={styles.container}>
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#111827",
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

@@ -1,7 +1,7 @@
+import { PropsWithChildren } from "react";
 import { SafeAreaView, StyleSheet, Platform, Image } from "react-native";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { PropsWithChildren } from "react";
 
 export default function ContentWrapper({ children }: PropsWithChildren) {
   const HeaderImage = () => (
@@ -29,7 +29,6 @@ export default function ContentWrapper({ children }: PropsWithChildren) {
 
   // Simpler layout for web
   return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
-
 }
 
 const styles = StyleSheet.create({

@@ -1,15 +1,31 @@
-import Animated, { SharedValue, useAnimatedStyle, interpolate, withTiming } from 'react-native-reanimated'
+import React, { PropsWithChildren } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
+import {
+  FlingGestureHandler,
+  Directions,
+  State,
+} from "react-native-gesture-handler";
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  interpolate,
+  withTiming,
+} from "react-native-reanimated";
 
 import { CardData } from "@/types/CardsTypes";
-import React, { PropsWithChildren } from "react";
-import { View, Text, Image, StyleSheet, StyleProp, ViewStyle } from "react-native";
-import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
 interface CardProps extends CardData {
-  cardIndex: number
+  cardIndex: number;
   animatedValue: SharedValue<number>;
   currentIndex: SharedValue<number>;
   previousIndex: SharedValue<number>;
-  listLength: number
+  listLength: number;
 }
 
 export default function Card({
@@ -26,63 +42,82 @@ export default function Card({
   animatedValue,
   currentIndex,
   previousIndex,
-  listLength
+  listLength,
 }: CardProps) {
   const animatedStyle = useAnimatedStyle(() => {
     const translateY = interpolate(
       animatedValue.value,
       [cardIndex - 1, cardIndex, cardIndex + 1],
-      [30, 1, -30]
-    )
+      [30, 1, -30],
+    );
     const translateY2 = interpolate(
       animatedValue.value,
       [cardIndex - 1, cardIndex, cardIndex + 1],
-      [30, 1, -30]
-    )
+      [30, 1, -30],
+    );
 
     const scale = interpolate(
       animatedValue.value,
       [cardIndex - 1, cardIndex, cardIndex + 1],
-      [0.9, 1, 1.1])
+      [0.9, 1, 1.1],
+    );
 
     const opacity = interpolate(
       animatedValue.value,
       [cardIndex - 1, cardIndex, cardIndex + 1],
-      [1, 1, 0])
+      [1, 1, 0],
+    );
 
     return {
       transform: [
-        { translateY: cardIndex === previousIndex.value ? translateY2 : translateY },
-        { scale }
+        {
+          translateY:
+            cardIndex === previousIndex.value ? translateY2 : translateY,
+        },
+        { scale },
       ],
-      opacity: cardIndex < currentIndex.value + 3 ? opacity : currentIndex.value + 3 - 1 ? withTiming(1) : withTiming(0)
-    }
-  })
+      opacity:
+        cardIndex < currentIndex.value + 3
+          ? opacity
+          : currentIndex.value + 3 - 1
+            ? withTiming(1)
+            : withTiming(0),
+    };
+  });
 
   return (
     <FlingGestureHandler
-      key='up'
+      key="up"
       direction={Directions.UP}
       onHandlerStateChange={(event) => {
         if (event.nativeEvent.state === State.END) {
           if (currentIndex.value !== 0) {
-            animatedValue.value = withTiming(currentIndex.value -= 1)
-            previousIndex.value = currentIndex.value - 1
+            animatedValue.value = withTiming((currentIndex.value -= 1));
+            previousIndex.value = currentIndex.value - 1;
           }
         }
-      }} >
+      }}
+    >
       <FlingGestureHandler
-        key='down'
+        key="down"
         direction={Directions.DOWN}
         onHandlerStateChange={(event) => {
           if (event.nativeEvent.state === State.END) {
             if (currentIndex.value !== listLength - 1) {
-              animatedValue.value = withTiming(currentIndex.value += 1)
+              animatedValue.value = withTiming((currentIndex.value += 1));
               previousIndex.value = currentIndex.value;
             }
           }
-        }} >
-        < Animated.View style={[styles.card, animatedStyle, { zIndex: listLength - cardIndex }]} testID="card">
+        }}
+      >
+        <Animated.View
+          style={[
+            styles.card,
+            animatedStyle,
+            { zIndex: listLength - cardIndex },
+          ]}
+          testID="card"
+        >
           <Text style={styles.cardTitle}>{name}</Text>
           <Image
             testID="card-image"
@@ -92,7 +127,10 @@ export default function Card({
           />
 
           <View style={styles.dataContainer}>
-            <Block row style={{ marginLeft: 16, marginTop: 16, marginBottom: 8 }}>
+            <Block
+              row
+              style={{ marginLeft: 16, marginTop: 16, marginBottom: 8 }}
+            >
               <Block>
                 <Text style={styles.detail}>Set: {set}</Text>
                 <Text style={styles.detail}>Type: {type}</Text>
@@ -110,17 +148,16 @@ export default function Card({
               <Text style={styles.traits}>Traits: {traits?.join(", ")}</Text>
             </Block>
           </View>
-        </ Animated.View>
+        </Animated.View>
       </FlingGestureHandler>
     </FlingGestureHandler>
-
   );
 }
 
 interface BlockProps {
-  style?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>;
   flex?: ViewStyle["flex"];
-  row?: boolean
+  row?: boolean;
 }
 
 function Block({
@@ -132,20 +169,20 @@ function Block({
 }: PropsWithChildren<BlockProps>) {
   const blockStyle = StyleSheet.flatten([
     flex !== undefined && { flex },
-    row && { flexDirection: 'row' } as ViewStyle,
+    row && ({ flexDirection: "row" } as ViewStyle),
     style,
-  ])
+  ]);
 
   return (
     <View style={blockStyle} {...props}>
       {children}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   card: {
-    position: 'absolute',
+    position: "absolute",
     // flex: 1,
     backgroundColor: "#1F2937",
     // height: 375,
@@ -164,11 +201,10 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.25,
     // shadowRadius: 3.84,
     // elevation: 5,
-
   },
 
   cardTitle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 28,
     fontWeight: "bold",
     color: "#FFFFFF",
@@ -178,13 +214,13 @@ const styles = StyleSheet.create({
   image: {
     width: 300,
     height: 300,
-    borderRadius: 65 // TODO: ask about white tips on the images
+    borderRadius: 65, // TODO: ask about white tips on the images
   },
 
   dataContainer: {
     height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   content: {
@@ -202,6 +238,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#D1D5DB",
     marginBottom: 8,
-  }
+  },
 });
-

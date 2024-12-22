@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react-native";
 
-import CardList from "../CardList";
 import { CardData } from "@/types/CardsTypes";
+
+import CardList from "../CardList";
 
 // TODO: sorry for deleting most of the test, there should have an integration test in the root
 describe("CardList Component", () => {
@@ -24,14 +25,11 @@ describe("CardList Component", () => {
       hp: "4",
       power: "5",
     },
-  ]
+  ];
 
   it("renders cards and allows sorting", async () => {
     render(<CardList cardList={cardList as CardData[]} />);
     expect(screen.getByText("Card 1")).toBeTruthy();
     expect(screen.getByText("Card 2")).toBeTruthy();
   });
-
 });
-
-

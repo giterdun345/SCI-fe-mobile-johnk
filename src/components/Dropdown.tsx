@@ -31,7 +31,7 @@ export default function Dropdown({ onSelect }: DropdownProps) {
           onSelect(itemValue);
         }}
         style={styles.picker}
-        mode='dialog'
+        mode="dialog"
       >
         <Picker.Item label="Select HP" value="" />
         {options.map((option) => (

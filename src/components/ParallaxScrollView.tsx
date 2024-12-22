@@ -69,7 +69,9 @@ export default function ParallaxScrollView({
         >
           {headerImage}
         </Animated.View>
-        <ThemedView style={styles.content}>{(children as ReactElement[]).slice(1)}</ThemedView>
+        <ThemedView style={styles.content}>
+          {(children as ReactElement[]).slice(1)}
+        </ThemedView>
       </Animated.ScrollView>
     </ThemedView>
   );
