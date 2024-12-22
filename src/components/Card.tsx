@@ -22,6 +22,7 @@ export default function Card({
         style={styles.image}
         resizeMode="contain"
       />
+
       <View style={styles.dataContainer}>
         <Block row style={{ marginLeft: 16, marginTop: 16, marginBottom: 8 }}>
           <Block>
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
   },
 
   dataContainer: {
+    height: 200,
     justifyContent: 'center',
     alignItems: 'center',
   },

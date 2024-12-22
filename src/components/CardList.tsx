@@ -16,9 +16,9 @@ export default function CardList({ cardList }: CardListProps) {
 
   return (
     <ThemedView style={styles.container}>
-      {cardList?.map((item) => (
+      {cardList.map((item) => (
         <Card key={item.id} {...item} />
-      ))}
+      ))[0]}
     </ThemedView>
   );
 }

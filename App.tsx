@@ -15,12 +15,10 @@ export default function App() {
   const { cards, loading, error } = useSearchCards(selectedHP, sortKey);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView >
       <ContentWrapper>
-        <View>
-          <Dropdown onSelect={setSelectedHP} />
-          <SortButtonGroup setSortKey={setSortKey} loading={loading} error={error} hasCards={cards.length === 0} />
-        </View>
+        <Dropdown onSelect={setSelectedHP} />
+        <SortButtonGroup setSortKey={setSortKey} loading={loading} error={error} hasCards={cards.length === 0} />
         <CardList cardList={cards} />
       </ContentWrapper>
     </GestureHandlerRootView>
