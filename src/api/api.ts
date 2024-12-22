@@ -55,11 +55,12 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 };
 
 export const searchCards = async (
-  hp: string,
+  hp: string
 ): Promise<CardResponse["data"]> => {
   // typing differs from CatalogResponse, keys are   ["total_cards", "data"]
   const storageKey = `card-list-${hp}`;
   const cache: CardResponse | null = await getCachedData(storageKey);
+
   if (cache !== null) return cache.data;
 
   try {

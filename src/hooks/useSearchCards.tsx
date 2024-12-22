@@ -5,7 +5,7 @@ import type { UnformattedCard } from "@/api/apiTypes";
 import type { CardData } from "@/types/CardsTypes";
 
 export function useSearchCards(
-  hp: undefined | string,
+  hp = "0",
   sortKey: undefined | keyof CardData,
 ) {
   const [cards, setCards] = useState<CardData[]>([]);
@@ -25,9 +25,9 @@ export function useSearchCards(
 
       try {
         const result = await searchCards(hp);
+        const formattedCards = result?.map(transformCardResponse);
 
-        const formattedCards = result.map(transformCardResponse);
-        setCards(formattedCards);
+        setCards(formattedCards || []);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load cards");
       } finally {

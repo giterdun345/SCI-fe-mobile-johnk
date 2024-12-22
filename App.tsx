@@ -22,7 +22,7 @@ export default function App() {
           setSortKey={setSortKey}
           loading={loading}
           error={error}
-          hasCards={cards.length === 0}
+          hasCards={cards?.length === 0}
         />
         <CardList cardList={cards} />
       </ContentWrapper>

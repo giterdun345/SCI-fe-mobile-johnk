@@ -1,34 +1,38 @@
 // CardList.tsx
-import { StyleSheet } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
-
-import type { CardData } from "@/types/CardsTypes";
+import { useRef, } from "react";
+import { Dimensions, Text, View, StyleSheet, } from "react-native";
+import Carousel, {
+  ICarouselInstance,
+} from "react-native-reanimated-carousel";
 
 import Card from "./Card";
 import { ThemedView } from "./ThemedView";
+import type { CardData } from "@/types/CardsTypes";
 
 type CardListProps = {
   cardList: CardData[];
 };
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height
+
 export default function CardList({ cardList }: CardListProps) {
-  const animatedValue = useSharedValue(0);
-  const currentIndex = useSharedValue(0);
-  const previousIndex = useSharedValue(0);
+  const ref = useRef<ICarouselInstance>(null);
 
   return (
     <ThemedView style={styles.container}>
-      {cardList.map((item, index) => (
-        <Card
-          key={item.id}
-          {...item}
-          cardIndex={index}
-          animatedValue={animatedValue}
-          currentIndex={currentIndex}
-          previousIndex={previousIndex}
-          listLength={cardList.length}
-        />
-      ))}
+      <Carousel
+        ref={ref}
+        width={screenWidth}
+        height={screenHeight * .75}
+        data={cardList}
+        loop={true}
+        pagingEnabled={true}
+        snapEnabled={true}
+        renderItem={({ item }) => (
+          <Card {...item} />
+        )}
+      />
     </ThemedView>
   );
 }
@@ -37,7 +41,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#111827",
     alignItems: "center",
     justifyContent: "center",
   },
