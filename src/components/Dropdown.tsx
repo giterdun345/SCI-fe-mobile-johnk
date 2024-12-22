@@ -1,43 +1,27 @@
 // Dropdown.tsx
 import { Picker } from "@react-native-picker/picker";
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
-
-import { fetchCatalog } from "../api/api";
+import { useState } from "react";
+import { View, StyleSheet, ActivityIndicator, Alert } from "react-native";
+import { useFetchCatalog } from "@/hooks/useFetchCatalog";
+import { fetchCatalog } from "@/api/api";
 
 type DropdownProps = {
   onSelect: (selectedValue: string) => void;
 };
 
 export default function Dropdown({ onSelect }: DropdownProps) {
-  const [options, setOptions] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>("");
 
-  useEffect(() => {
-    const loadOptions = async () => {
-      try {
-        const result = await fetchCatalog();
-        setOptions(result.data);
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to load options";
-        setError(errorMessage);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void loadOptions();
-  }, []);
-
+  const { options, loading, error } = useFetchCatalog()
   if (loading) {
-    return <Text style={styles.loadingText}>Loading options...</Text>;
+    return <ActivityIndicator size="large" />;
   }
 
   if (error) {
-    return <Text style={styles.errorText}>Error: {error}</Text>;
+    return Alert.alert('Error getting dropdown options', error, [
+      { text: 'Cancel' },
+      { text: 'OK' }, // TODO: should add a button to retry 
+    ]);;
   }
 
   return (

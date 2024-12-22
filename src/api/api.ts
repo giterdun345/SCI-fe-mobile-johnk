@@ -1,9 +1,10 @@
 // api.ts
 import { Platform } from "react-native";
 import axios from "axios";
+import type { CatalogResponse, CardResponse } from "./apiTypes";
 
 const BASE_URL =
-  Platform.OS !== "web"
+  Platform.OS === "android"
     ? "http://10.0.2.2:8010/proxy"
     : "http://localhost:8010/proxy";
 
@@ -17,55 +18,33 @@ export class APIError extends Error {
   }
 }
 
-export interface CardResponse {
-  Set: string;
-  Number: string;
-  Name: string;
-  Type: string;
-  Aspects?: string[];
-  Traits?: string[];
-  Arenas?: string[];
-  Cost: string;
-  Power: string;
-  HP: string;
-  FrontText?: string;
-  DoubleSided?: boolean;
-  Rarity?: string;
-  Unique?: boolean;
-  Artist?: string;
-  VariantType?: string;
-  MarketPrice?: string;
-  FoilPrice?: string;
-  FrontArt?: string;
-}
-
-export interface APIResponse<T> {
+interface APIResponse<T> {
   data: T;
   status?: number;
   message?: string;
 }
 
-export const fetchCatalog = async (): Promise<APIResponse<string[]>> => {
-  console.log("BASE URL", BASE_URL);
+export const fetchCatalog = async (): Promise<CatalogResponse> => {
   try {
-    const response = await axios.get<APIResponse<string[]>>(
+    const response = await axios.get<CatalogResponse>(
       `${BASE_URL}/catalog/hps`
     );
+
+    const catalogOptions = response.data.data; // TODO: may want to adjust name
+
     return {
-      // TODO: figure out what data is required, do we only need data?
       ...response.data,
-      data: response.data.data.filter(
-        (option: string) => !option.includes("+")
-      ),
+      data: catalogOptions.filter((option: string) => !option.includes("+")),
     };
   } catch (error) {
-    console.log("error", error);
+    console.error("error", error);
     if (axios.isAxiosError(error)) {
       throw new APIError(
         `Failed to fetch catalog data: ${error.message}`,
         error
       );
     }
+
     throw new APIError("Failed to fetch catalog data");
   }
 };

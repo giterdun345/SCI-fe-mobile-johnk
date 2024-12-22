@@ -10,59 +10,19 @@ import {
 } from "react-native";
 
 import Card from "./Card";
-import { searchCards, CardResponse, fetchCatalog } from "../api/api";
+import { searchCards, fetchCatalog } from "../api/api";
+import { CardResponse } from "@/api/apiTypes";
+import { transformCardResponse } from "@/utils/transformCardResponse";
 
-type CardData = {
-  set: string;
-  number: string;
-  name: string;
-  type: string;
-  aspects: string[];
-  traits: string[];
-  arenas: string[];
-  cost: number;
-  power: number;
-  hp: number;
-  fronttext: string;
-  doublesided: boolean;
-  rarity: string;
-  unique: boolean;
-  artist: string;
-  varianttype: string;
-  marketprice: string;
-  foilprice: string;
-  frontArt: string;
-  id: string;
-};
+import type { CardData } from "@/types/CardsTypes";
 
 type CardListProps = {
   hp?: string;
+  cardList: CardData[]
 };
 
-const transformCardResponse = (card: CardResponse): CardData => ({
-  set: card.Set,
-  number: card.Number,
-  name: card.Name,
-  type: card.Type,
-  aspects: card.Aspects ?? [],
-  traits: card.Traits ?? [],
-  arenas: card.Arenas ?? [],
-  cost: parseInt(card.Cost ?? "0", 10),
-  power: parseInt(card.Power ?? "0", 10),
-  hp: parseInt(card.HP ?? "0", 10),
-  fronttext: card.FrontText ?? "",
-  doublesided: card.DoubleSided ?? false,
-  rarity: card.Rarity ?? "",
-  unique: card.Unique ?? false,
-  artist: card.Artist ?? "",
-  varianttype: card.VariantType ?? "",
-  marketprice: card.MarketPrice ?? "",
-  foilprice: card.FoilPrice ?? "",
-  frontArt: card.FrontArt ?? "",
-  id: `${card.Set || "unknown-set"}-${card.Number || "unknown-number"}`,
-});
 
-export default function CardList({ hp = "" }: CardListProps) {
+export default function CardList({ hp = "", cardList }: CardListProps) {
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -160,13 +120,14 @@ export default function CardList({ hp = "" }: CardListProps) {
         {renderSortButton("Cost", "cost", "#8B5CF6")}
         {renderSortButton("Power", "power", "#EF4444")}
       </View>
-      <FlatList
+      {/* <FlatList
         data={cards}
         renderItem={({ item }) => <Card {...item} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         testID="card-list"
-      />
+      /> */}
+      {cards.map(item => <Card key={item.id}{...item} />)}
     </View>
   );
 }
