@@ -5,6 +5,7 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import React from "react";
+import { Alert } from 'react-native';
 
 import { fetchCatalog } from "../../api/api";
 import Dropdown from "../Dropdown";
@@ -12,6 +13,7 @@ import Dropdown from "../Dropdown";
 jest.mock("../../api/api", () => ({
   fetchCatalog: jest.fn(),
 }));
+
 
 const mockedFetchCatalog = fetchCatalog as jest.MockedFunction<
   typeof fetchCatalog
@@ -25,13 +27,14 @@ describe("Dropdown Component", () => {
     jest.clearAllMocks();
   });
 
-  it("shows loading state initially", () => {
+  it("shows loading state initially", async () => {
     mockedFetchCatalog.mockImplementation(() => new Promise(() => {}));
     render(<Dropdown onSelect={mockOnSelect} />);
-    expect(screen.getByText("Loading options...")).toBeTruthy();
+    const loadingIndicator = screen.getByAccessibilityHint('loading')
+    expect(loadingIndicator).toBeTruthy();
   });
 
-  it("displays error message when API fails", async () => {
+  it("displays error alert when API fails", async () => {
     const expectedErrorMessage = "An error occurred";
     mockedFetchCatalog.mockRejectedValueOnce(new Error(expectedErrorMessage));
     const { findByText } = render(<Dropdown onSelect={mockOnSelect} />);
@@ -44,7 +47,7 @@ describe("Dropdown Component", () => {
     render(<Dropdown onSelect={mockOnSelect} />);
 
     await waitFor(() => {
-      expect(screen.queryByText("Loading options...")).toBeFalsy();
+      expect(screen.queryByRole("progressbar")).toBeFalsy();
     });
 
     const picker = screen.getByTestId("picker");

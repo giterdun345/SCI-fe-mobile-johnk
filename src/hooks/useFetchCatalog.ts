@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchCatalog } from "@/api/api";
 
 export function useFetchCatalog() {
-  const [options, setOptions] = useState<string[]>([]);
+  const [options, setOptions] = useState([""]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -11,7 +11,7 @@ export function useFetchCatalog() {
       try {
         const result = await fetchCatalog();
 
-        setOptions(result.data);
+        setOptions(result.data as string[]);
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load options";

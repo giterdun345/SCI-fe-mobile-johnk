@@ -4798,14 +4798,6 @@ expo-symbols@~0.2.0:
   dependencies:
     sf-symbols-typescript "^2.0.0"
 
-expo-system-ui@~4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/expo-system-ui/-/expo-system-ui-4.0.6.tgz#23d172e346dbe478f31e36019c2570242e7c0762"
-  integrity sha512-JWmw0aaNIB8YxA6bXgH6nClyledZaAG5VNzoRvmXT4+j3MY4waAHSSSdVV71bUgjchT/2KOAcibZ/EeosJONug==
-  dependencies:
-    "@react-native/normalize-colors" "0.76.5"
-    debug "^4.3.2"
-
 expo@~52.0.20:
   version "52.0.21"
   resolved "https://registry.yarnpkg.com/expo/-/expo-52.0.21.tgz#49cf9342b0d914565f2d3f65579aa5c7f67bef55"
