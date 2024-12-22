@@ -52,7 +52,6 @@ describe("Dropdown Component", () => {
     });
     render(<Dropdown onSelect={mockOnSelect} />);
 
-
     await waitFor(() => {
       expect(screen.queryByRole("progressbar")).toBeFalsy();
     });

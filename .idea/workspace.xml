@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a0694fef-7efe-4404-9dc5-c72d91debd1c" name="Changes" comment="api tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/__tests__/Card.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/__tests__/Card.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/__tests__/CardList.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/__tests__/CardList.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/__tests__/Dropdown.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/__tests__/Dropdown.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/__tests__/Main.test.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

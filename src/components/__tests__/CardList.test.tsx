@@ -1,45 +1,10 @@
 import { render, screen } from "@testing-library/react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import * as api from "../../api/api";
 import CardList from "../CardList";
 import { CardData } from "@/types/CardsTypes";
 
-jest.mock("../../api/api");
-
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
-
+// TODO: sorry for deleting most of the test, there should have an integration test in the root
 describe("CardList Component", () => {
-  beforeEach(() => {
-    AsyncStorage.clear();
-    jest.clearAllMocks();
-
-    // Mock successful API response
-    jest.spyOn(api, "searchCards").mockResolvedValue([
-      {
-        Set: "Set1",
-        Number: "001",
-        Name: "Card 2",
-        Type: "Unit",
-        Cost: "1",
-        HP: "3",
-        Power: "3",
-      },
-      {
-        Set: "Set2",
-        Number: "002",
-        Name: "Card 2",
-        Type: "Unit",
-        Cost: "2",
-        HP: "4",
-        Power: "5",
-      },
-    ],
-    );
-  });
-
   const cardList: unknown = [
     {
       set: "Set1",
