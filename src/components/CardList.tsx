@@ -2,6 +2,7 @@
 import {
   StyleSheet,
 } from "react-native";
+// import {Ges}
 
 import type { CardData } from "@/types/CardsTypes";
 import Card from "./Card";

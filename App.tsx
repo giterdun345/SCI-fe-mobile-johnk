@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { useSearchCards } from "@/hooks/useSearchCards";
 import { CardData } from "@/types/CardsTypes";
@@ -14,6 +15,7 @@ export default function App() {
   const { cards, loading, error } = useSearchCards(selectedHP, sortKey);
 
   return (
+    // <GestureHandlerRootView style={{ flex: 1 }}>
     <ContentWrapper>
       <View>
         <Dropdown onSelect={setSelectedHP} />
@@ -21,6 +23,7 @@ export default function App() {
       </View>
       <CardList cardList={cards} />
     </ContentWrapper>
+    // </GestureHandlerRootView>
   )
 }
 

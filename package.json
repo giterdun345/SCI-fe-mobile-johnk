@@ -5,7 +5,7 @@
   "scripts": {
     "start": "echo \"Please use 'yarn web-with-proxy' or 'yarn android-with-proxy' or 'yarn ios-with-proxy'\" && exit 1",
     "android": "expo start --android -c",
-    "ios": "expo start --ios",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -31,6 +31,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.5",
+    "react-native-gesture-handler": "~2.20.2",
     "react-native-reanimated": "^3.16.5",
     "react-native-safe-area-context": "4.12.0",
     "react-native-web": "~0.19.13"

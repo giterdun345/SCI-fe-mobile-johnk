@@ -21,7 +21,6 @@ export default function Card({
         source={{ uri: frontArt }}
         style={styles.image}
         resizeMode="contain"
-
       />
       <View style={styles.dataContainer}>
         <Block row style={{ marginLeft: 16, marginTop: 16, marginBottom: 8 }}>
@@ -75,7 +74,6 @@ function Block({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#1F2937",
-    borderRadius: 8,
     padding: 8,
     marginRight: 8,
     marginLeft: 8,
@@ -106,7 +104,6 @@ const styles = StyleSheet.create({
   },
 
   dataContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
