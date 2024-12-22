@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     },
     themed: {
         flex: 1,
-        padding: 30,
+        padding: 15,
         gap: 23,
+        overflow: 'hidden'
     }
 });

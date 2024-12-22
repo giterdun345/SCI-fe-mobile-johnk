@@ -15,7 +15,7 @@ export default function App() {
   const { cards, loading, error } = useSearchCards(selectedHP, sortKey);
 
   return (
-    <GestureHandlerRootView >
+    <GestureHandlerRootView  >
       <ContentWrapper>
         <Dropdown onSelect={setSelectedHP} />
         <SortButtonGroup setSortKey={setSortKey} loading={loading} error={error} hasCards={cards.length === 0} />
