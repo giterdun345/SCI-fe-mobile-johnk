@@ -15,7 +15,8 @@
     "validate": "yarn lint && yarn test",
     "proxy": "lcp --proxyUrl https://api.swu-db.com",
     "web-with-proxy": "yarn validate && concurrently \"yarn proxy\" \"yarn web\"",
-    "android-with-proxy": " concurrently \"yarn proxy\" \"yarn android\""
+    "android-with-proxy": "yarn validate && concurrently \"yarn proxy\" \"yarn android\"",
+    "ios-with-proxy": "yarn validate && concurrently \"yarn proxy\" \"yarn ios\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.0",
@@ -26,6 +27,7 @@
     "axios": "^1.7.9",
     "expo": "~52.0.20",
     "expo-blur": "~14.0.1",
+    "expo-constants": "~17.0.3",
     "expo-status-bar": "~2.0.0",
     "expo-symbols": "~0.2.0",
     "react": "18.3.1",

@@ -4,10 +4,7 @@ import { searchCards } from "@/api/api";
 import type { UnformattedCard } from "@/api/apiTypes";
 import type { CardData } from "@/types/CardsTypes";
 
-export function useSearchCards(
-  hp = "0",
-  sortKey: undefined | keyof CardData,
-) {
+export function useSearchCards(hp = "0", sortKey: undefined | keyof CardData) {
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from "react-native-reanimated";
 
 import ContentWrapper from "@/components/ContentWrapperNew";
 import Dropdown from "@/components/Dropdown";
@@ -8,6 +12,15 @@ import { useSearchCards } from "@/hooks/useSearchCards";
 import { CardData } from "@/types/CardsTypes";
 
 import CardList from "./src/components/CardList";
+
+/* This is the default configuration with strict 
+/*   mode disabled for  Warning: Reading from `value` 
+/* during component render. 
+*/
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false, // Reanimated runs in strict mode by default
+});
 
 export default function App() {
   const [selectedHP, setSelectedHP] = useState<string>("");
@@ -19,6 +32,7 @@ export default function App() {
       <ContentWrapper>
         <Dropdown onSelect={setSelectedHP} />
         <SortButtonGroup
+          sortKey={sortKey}
           setSortKey={setSortKey}
           loading={loading}
           error={error}

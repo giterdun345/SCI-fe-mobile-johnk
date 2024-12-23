@@ -6,9 +6,10 @@ import { Platform } from "react-native";
 import type { CatalogResponse, CardResponse } from "./apiTypes";
 
 const BASE_URL =
-  Platform.OS === "android"
+  process.env.BASE_URL ||
+  (Platform.OS === "android"
     ? "http://10.0.2.2:8010/proxy"
-    : "http://localhost:8010/proxy";
+    : "http://localhost:8010/proxy");
 
 export class APIError extends Error {
   constructor(
@@ -55,7 +56,7 @@ export const fetchCatalog = async (): Promise<CatalogResponse> => {
 };
 
 export const searchCards = async (
-  hp: string
+  hp: string,
 ): Promise<CardResponse["data"]> => {
   // typing differs from CatalogResponse, keys are   ["total_cards", "data"]
   const storageKey = `card-list-${hp}`;

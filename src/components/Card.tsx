@@ -21,7 +21,6 @@ export default function Card({
   rarity,
   frontArt,
 }: CardData) {
-
   return (
     <View style={styles.card} testID="card">
       <Text style={styles.cardTitle}>{name}</Text>
@@ -34,10 +33,7 @@ export default function Card({
       />
 
       <View style={styles.dataContainer}>
-        <Block
-          row
-          style={styles.blockWrapper}
-        >
+        <Block row style={styles.blockWrapper}>
           <Block>
             <Text style={styles.detail}>Set: {set}</Text>
             <Text style={styles.detail}>Type: {type}</Text>
@@ -55,8 +51,7 @@ export default function Card({
           <Text style={styles.traits}>Traits: {traits?.join(", ")}</Text>
         </Block>
       </View>
-    </ View>
-
+    </View>
   );
 }
 
@@ -88,7 +83,7 @@ function Block({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1F2937"
+    backgroundColor: "#1F2937",
   },
 
   cardTitle: {

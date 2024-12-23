@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import type { CardData } from "@/types/CardsTypes";
 
 interface SortButtonGroupProps {
+  sortKey: keyof CardData;
   setSortKey: Dispatch<SetStateAction<keyof CardData>>;
   loading: boolean;
   error: string | null;
@@ -11,6 +12,7 @@ interface SortButtonGroupProps {
 }
 
 export default function SortButtonGroup({
+  sortKey,
   setSortKey,
   loading,
   error,
@@ -52,15 +54,16 @@ export default function SortButtonGroup({
   if (hasCards) {
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.messageText}>No cards found.</Text>
-        </View>
+        <Text style={styles.messageText}>No cards found.</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
+      <Text style={styles.searchParamText}>
+        {sortKey ? `Sorting by: ${sortKey}` : ""}
+      </Text>
       <View style={styles.sortButtons}>
         {renderSortButton("Name", "name", "#3B82F6")}
         {renderSortButton("Set", "set", "#10B981")}
@@ -106,6 +109,11 @@ const styles = StyleSheet.create({
   errorText: {
     textAlign: "center",
     color: "#EF4444",
+    fontSize: 16,
+    padding: 16,
+  },
+  searchParamText: {
+    color: "#FFFFFF",
     fontSize: 16,
     padding: 16,
   },

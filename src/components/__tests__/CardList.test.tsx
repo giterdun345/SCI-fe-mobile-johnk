@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react-native";
+import { render, screen, waitFor } from "@testing-library/react-native";
 
 import { CardData } from "@/types/CardsTypes";
 
 import CardList from "../CardList";
 
-// TODO: sorry for deleting most of the test, there should have an integration test in the root
+// TODO: sorry for deleting most of the test, there should be an integration test in the root
 describe("CardList Component", () => {
   const cardList: unknown = [
     {
@@ -29,7 +29,8 @@ describe("CardList Component", () => {
 
   it("renders cards and allows sorting", async () => {
     render(<CardList cardList={cardList as CardData[]} />);
-    expect(screen.getByText("Card 1")).toBeTruthy();
-    expect(screen.getByText("Card 2")).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getAllByText("Card 1")).toHaveLength(2); // needs multiple for scroll effect
+    });
   });
 });

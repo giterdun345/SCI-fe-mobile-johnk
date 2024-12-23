@@ -22,43 +22,55 @@ export default function Dropdown({ onSelect }: DropdownProps) {
   }
 
   return (
-    <View style={styles.container}>
-      <Picker
-        testID="picker"
-        selectedValue={selectedValue}
-        onValueChange={(itemValue: string) => {
-          setSelectedValue(itemValue);
-          onSelect(itemValue);
-        }}
-        style={styles.picker}
-        mode="dialog"
-      >
-        <Picker.Item label="Select HP" value="" />
-        {options.map((option) => (
-          <Picker.Item key={option} label={option} value={option} />
-        ))}
-      </Picker>
-    </View>
+    <>
+      <Text style={styles.prompt}>Search by HP value</Text>
+      <View style={styles.container}>
+        <Picker
+          testID="picker"
+          selectedValue={selectedValue}
+          onValueChange={(itemValue: string) => {
+            setSelectedValue(itemValue);
+            onSelect(itemValue);
+          }}
+          style={styles.picker}
+          mode="dialog"
+        >
+          <Picker.Item label="Select HP" value="" />
+          {options.map((option) => (
+            <Picker.Item key={option} label={option} value={option} />
+          ))}
+        </Picker>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+  prompt: {
+    color: "#000",
+    fontWeight: "bold",
+    marginTop: 15,
+    marginBottom: -20,
+  },
+
   container: {
-    marginVertical: 10,
     borderWidth: 1,
     borderColor: "#4B5563",
     borderRadius: 8,
     backgroundColor: "#374151",
   },
+
   picker: {
     color: "#FFFFFF",
     height: 50,
   },
+
   loadingText: {
     textAlign: "center",
     color: "#FFFFFF",
     padding: 10,
   },
+
   errorText: {
     textAlign: "center",
     color: "#EF4444",
