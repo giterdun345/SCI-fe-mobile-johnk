@@ -14,7 +14,7 @@ Make sure you have yarn and expo configured on your local machine.
 
 - Start by cloning the repo on your local machine with:
 
-  `git clone https://github.com/doctor-ew/SCI-fe-dev-challenge-mobile.git`
+  `git clone https://github.com/giterdun345/SCI-fe-mobile-johnk.git`
 
 - Next enter the root directory, install the dependencies and run the app:
 
